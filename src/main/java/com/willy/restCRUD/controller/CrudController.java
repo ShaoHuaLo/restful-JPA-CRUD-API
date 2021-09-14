@@ -1,8 +1,8 @@
 package com.willy.restCRUD.controller;
 
-import com.willy.restCRUD.repository.CrudDao;
 import com.willy.restCRUD.dto.UserDto;
 import com.willy.restCRUD.entity.User;
+import com.willy.restCRUD.service.UserService;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,40 +19,38 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api")
 public class CrudController {
+
   private static final Logger LOG = LoggerFactory.getLogger(CrudController.class);
 
-  private CrudDao dao;
+  private UserService service;
 
   @Autowired
-  public CrudController(CrudDao dao) {
-    this.dao = dao;
+  public CrudController(UserService service) {
+    this.service = service;
   }
 
   @GetMapping(path = "/users")
   public List<User> getUsers() {
-    return dao.getUsers();
+    return service.getAllUsers();
   }
 
   @GetMapping(path = "/users/{id}")
   public User getUserById(@PathVariable int id) {
-    return dao.getUserById(id);
+    return service.getSingleUserById(id);
   }
 
   @PostMapping(path = "/users")
   public User saveUser(@RequestBody UserDto dto) {
-    return dao.saveUser(dto);
+    return service.saveSingleUser(dto);
   }
 
   @DeleteMapping(path = "/users/{id}")
   public void deleteUserById(@PathVariable int id) {
-    dao.deleteUserById(id);
+    service.deleteSingleUserById(id);
   }
 
-  @PutMapping(path = "/users")
-  public User updateUser(@RequestBody UserDto dto) {
-    return dao.updateUser(dto);
+  @PutMapping(path = "/users/{id}")
+  public User updateUser(@RequestBody UserDto dto, @PathVariable int id) {
+    return service.updateSingleUser(dto, id);
   }
-
-
-
 }
