@@ -1,10 +1,8 @@
 package com.willy.restCRUD.controller;
 
-import com.willy.restCRUD.dao.CrudDao;
-import com.willy.restCRUD.dao.CrudDaoImpl;
+import com.willy.restCRUD.repository.CrudDao;
 import com.willy.restCRUD.dto.UserDto;
 import com.willy.restCRUD.entity.User;
-import com.willy.restCRUD.entity.UserProfile;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -48,7 +45,6 @@ public class CrudController {
   @DeleteMapping(path = "/users/{id}")
   public void deleteUserById(@PathVariable int id) {
     dao.deleteUserById(id);
-    return;
   }
 
 

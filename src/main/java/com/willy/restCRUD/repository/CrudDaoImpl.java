@@ -1,4 +1,4 @@
-package com.willy.restCRUD.dao;
+package com.willy.restCRUD.repository;
 
 import com.willy.restCRUD.dto.UserDto;
 import com.willy.restCRUD.entity.User;
@@ -7,13 +7,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CrudDaoImpl implements CrudDao{
+public class CrudDaoImpl implements CrudDao {
+
   private static final Logger LOG = LoggerFactory.getLogger(CrudDaoImpl.class);
   private EntityManager em;
 
@@ -22,9 +24,13 @@ public class CrudDaoImpl implements CrudDao{
     this.em = em;
   }
 
+  @Transactional
   @Override
   public List<User> getUsers() {
-    return null;
+    Session session = em.unwrap(Session.class);
+    Query<User> myquery = session.createQuery("from User", User.class);
+    List<User> users = myquery.getResultList();
+    return users;
   }
 
   @Override
@@ -53,6 +59,5 @@ public class CrudDaoImpl implements CrudDao{
   public void deleteUserById(int id) {
     Session session = em.unwrap(Session.class);
     session.delete(session.get(User.class, id));
-    return;
   }
 }

@@ -1,4 +1,4 @@
-package com.willy.restCRUD.dao;
+package com.willy.restCRUD.repository;
 
 import com.willy.restCRUD.dto.UserDto;
 import com.willy.restCRUD.entity.User;
