@@ -2,7 +2,6 @@ package com.willy.restCRUD.service;
 
 import com.willy.restCRUD.dto.UserDto;
 import com.willy.restCRUD.entity.User;
-import com.willy.restCRUD.repository.UserDao;
 import java.util.List;
 
 public interface UserService {

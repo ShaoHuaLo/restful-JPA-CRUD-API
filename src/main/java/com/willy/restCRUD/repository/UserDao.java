@@ -1,8 +1,6 @@
 package com.willy.restCRUD.repository;
 
-import com.willy.restCRUD.dto.UserDto;
 import com.willy.restCRUD.entity.User;
-import com.willy.restCRUD.entity.UserProfile;
 import java.util.List;
 
 public interface UserDao {
