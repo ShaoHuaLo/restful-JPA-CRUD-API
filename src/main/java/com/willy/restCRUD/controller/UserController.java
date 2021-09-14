@@ -17,39 +17,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api")
-public class CrudController {
+@RequestMapping(path = "/api/users")
+public class UserController {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CrudController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
   private UserService service;
 
   @Autowired
-  public CrudController(UserService service) {
+  public UserController(UserService service) {
     this.service = service;
   }
 
-  @GetMapping(path = "/users")
+  @GetMapping(path = "/")
   public List<User> getUsers() {
     return service.getAllUsers();
   }
 
-  @GetMapping(path = "/users/{id}")
+  @GetMapping(path = "/{id}")
   public User getUserById(@PathVariable int id) {
     return service.getSingleUserById(id);
   }
 
-  @PostMapping(path = "/users")
+  @PostMapping(path = "/")
   public User saveUser(@RequestBody UserDto dto) {
     return service.saveSingleUser(dto);
   }
 
-  @DeleteMapping(path = "/users/{id}")
+  @DeleteMapping(path = "/{id}")
   public void deleteUserById(@PathVariable int id) {
     service.deleteSingleUserById(id);
   }
 
-  @PutMapping(path = "/users/{id}")
+  @PutMapping(path = "/{id}")
   public User updateUser(@RequestBody UserDto dto, @PathVariable int id) {
     return service.updateSingleUser(dto, id);
   }
