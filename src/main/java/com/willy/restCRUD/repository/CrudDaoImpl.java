@@ -36,7 +36,6 @@ public class CrudDaoImpl implements CrudDao {
   @Override
   @Transactional
   public User saveUser(UserDto userDto) {
-    // TODO
     Session session = em.unwrap(Session.class);
     User user = userDto.getUser();
     UserProfile userProfile = userDto.getUserProfile();
@@ -47,6 +46,7 @@ public class CrudDaoImpl implements CrudDao {
     return user;
   }
 
+  @Transactional
   @Override
   public User getUserById(int id) {
     Session session = em.unwrap(Session.class);
@@ -59,5 +59,21 @@ public class CrudDaoImpl implements CrudDao {
   public void deleteUserById(int id) {
     Session session = em.unwrap(Session.class);
     session.delete(session.get(User.class, id));
+  }
+
+
+  @Transactional
+  @Override
+  public User updateUser(UserDto userDto) {
+    User userNew = userDto.getUser();
+    UserProfile userProfileNew = userDto.getUserProfile();
+    userNew.setUserProfile(userProfileNew);
+    userProfileNew.setUser(userNew);
+
+    // set id otherwise new entry will be inserted rather than updated
+    int id = userNew.getId();
+    userProfileNew.setId(id);
+    em.merge(userNew);
+    return userNew;
   }
 }

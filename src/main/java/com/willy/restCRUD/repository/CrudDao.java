@@ -9,5 +9,6 @@ public interface CrudDao {
   User saveUser(UserDto userDto);
   User getUserById(int id);
   void deleteUserById(int id);
+  User updateUser(UserDto userDto);
 
 }
